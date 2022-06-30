@@ -1,0 +1,16 @@
+{
+  "name": "musicians_band_updated",
+  "version": "1.0.0",
+  "description": "A Sequelize DB for bands to organize their songs and musicians",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "author": "Jonathan Jacka (https://jonathanjacka.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^28.1.2",
+    "sequelize": "^6.21.2",
+    "sqlite3": "^5.0.8"
+  }
+}
