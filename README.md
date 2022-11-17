@@ -42,3 +42,34 @@ console.log(seedRestaurant[0]); // Returns "AppleBees"
 ### Commit and Push
 - `git add .`, `git commit -m “somemessage”`, and `git push` so we can see your work!
 
+## Part 2: Associations and Eager Loading
+We are now going to add associations and eager loading to the database we created in part 1.
+
+### Setup
+- Let’s start up the tests again with `npm test`. You should have a few passing from last time.
+- Let’s add a few tests using the guidelines in the next few sections.
+
+### Associations: One-to-Many
+- In `./models/index.js`, after the requires, but before the `module.exports`, associate the 2 models:
+  - Multiple menus can be added to a Restaurant.
+  - Add a third test to account for the association
+
+### New Model: `Items`
+- Define the model! Here are the details:
+  - Create a new `Item` file in the models directory
+  - The `Item` model should have name and image properties, both of which are strings
+  - The `Item` model should also have `price` (number) and `vegetarian` (boolean) properties
+- Make sure to export the model and import it anywhere you need it!
+
+### Association: Menu Items
+- Back in `./models/index.js` Associate the `Menu` and `Item` models
+  - Multiple items can be added to a menu.
+  - Items can be added to many menus
+  - Add another test to account for the association
+
+### Eager Loading
+- Add a test or two that eager loads the data.
+  - For example, find all `Menus` and include their `Item` model
+
+### Commit and Push
+- `git add .`, `git commit -m “somemessage”`, and `git push` so we can see your work!
