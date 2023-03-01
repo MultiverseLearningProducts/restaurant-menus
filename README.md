@@ -23,7 +23,7 @@ Now that we have the starting point, let’s get to work coding it out!  Use the
 
 ### Models
 - Define the models! Here are the details:
-  - The `Restaurant` model should have name location and cuisine properties, all of which are strings.
+  - The `Restaurant` model should have name, location, and cuisine properties, all of which are strings.
   - The `Menu` model should have title which is also a string.
 
 ### Tests
