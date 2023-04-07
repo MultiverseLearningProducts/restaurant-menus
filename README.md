@@ -84,4 +84,4 @@ We are now going to add associations and eager loading to the database we create
 
 ### Eager Loading
 1. Add a test or two that eager loads the data.
-  - For example, find all Menu instance, and include their Item model
+  - For example, find all Menu instance, and include their `Item` model
