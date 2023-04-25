@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seed": "node seed.js",
     "test": "jest --watchAll"
   },
   "keywords": [],
