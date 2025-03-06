@@ -4,6 +4,7 @@ const {
     seedRestaurant,
     seedMenu,
   } = require('./seedData');
+const {Item} = require("./models/Item");
 
 describe('Restaurant and Menu Models', () => {
     /**
@@ -60,7 +61,6 @@ describe('Restaurant and Menu Models', () => {
 
     });
 
-
     test('can update Menus', async () => {
         const foundMenu = await Menu.findOne({ where: {title: 'Breakfast'}})
         expect(foundMenu.title).toEqual('Breakfast')
@@ -93,5 +93,77 @@ describe('Restaurant and Menu Models', () => {
         await foundMenu.destroy();
         const notFoundMenu = await Menu.findOne({ where: {title: 'Lunch'}})
         expect(notFoundMenu).toEqual(null)
+    });
+
+    test("Multiple menus can be added to a restaurant", async () => {
+        const menu1 = await Menu.findOne({ where: {title: 'Dinner'}})
+        const menu2 = await Menu.findOne({ where: {title: 'Breakfast'}})
+        const restaurant = await Restaurant.findOne({
+            where: {
+                name: 'AppleBees'
+            }})
+        await restaurant.addMenus([menu1, menu2])
+        expect((await restaurant.getMenus())[0].title).toBe(menu2.title)
+        expect((await restaurant.getMenus())[1].title).toBe(menu1.title)
+    })
+
+
+    test('can create Items', async () => {
+        const item = await Item.create({
+            name: 'name',
+            image: 'test',
+            price: 999,
+            vegetarian: true
+        })
+        expect((await Item.findOne({name: 'name'})).name).toEqual('name')
+    });
+
+    test('can update Items', async () => {
+        const item = await Item.create({
+            name: 'name2',
+            image: 'test',
+            price: 999,
+            vegetarian: true
+        })
+        expect((await Item.findOne({name: 'name2'})).image).toEqual('test')
+
+        item.update({
+            image: 'different image'
+        })
+
+        expect((await Item.findOne({name: 'name2'})).image).toEqual('different image')
+    });
+
+    test('can delete Items', async () => {
+        const item = await Item.create({
+            name: 'name2',
+            image: 'test',
+            price: 999,
+            vegetarian: true
+        })
+        expect((await Item.findOne({name: 'name2'})).image).toEqual('test')
+
+        item.destroy()
+
+        expect(await Item.findOne({name: 'name2'})).toEqual(null)
+    });
+
+    test('a menu can have multiple items', async () => {
+        const item1 = await Item.create({
+            name: 'name',
+            image: 'test2',
+            price: 1,
+            vegetarian: false
+        })
+        const item2 = await Item.create({
+            name: 'name2',
+            image: 'test',
+            price: 999,
+            vegetarian: true
+        })
+        const menu = await Menu.findOne({ where: {title: 'Dinner'}})
+        await menu.addItems([item1, item2])
+        expect((await menu.getItems())[0].vegetarian).toEqual(false)
+        expect((await menu.getItems())[1].vegetarian).toEqual(true)
     });
 })
